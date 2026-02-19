@@ -19,18 +19,22 @@ limitations under the License.
 ******************************************************************************/
 
 import {
+    MetadataPropertiesMap,
+    type MetadataPropertyValue,
+} from './index'
+
+import {
     blankNode,
     isBlankNode,
     isLiteral,
     isNamedNode,
-    MetadataPropertiesMap,
-    type MetadataPropertyValue,
     type ContentType,
     type NamedNode,
-    type Statement
-} from './index'
-
-import type { SubjectType, PredicateType, ObjectType } from './index'
+    type ObjectType,
+    type PredicateType,
+    type Statement,
+    type SubjectType
+} from './oxigraphStore'
 
 //==============================================================================
 
@@ -146,15 +150,12 @@ export abstract class BaseStore {
 
     #metadataValue(value: ObjectType): MetadataPropertyValue | null {
         if (isLiteral(value) || isNamedNode(value)) {
-            // @ts-expect-error: `value` is a Literal or NamedNode
             return value
         } else if (isBlankNode(value)) {
             // @ts-expect-error: value is a BlankNode
             if (this.contains(value, RDF.uri('rest'), null)) {
-                // @ts-expect-error: `value` is a BlankNode
                 return this.#listFromCollection(value)
             } else {
-                // @ts-expect-error: `value` is a BlankNode
                 return this.metadataPropertiesForSubject(value)
             }
         }

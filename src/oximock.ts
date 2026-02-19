@@ -18,32 +18,41 @@ limitations under the License.
 
 ******************************************************************************/
 
-import * as $rdf from '.'
+import {
+    blankNode,
+    isBlankNode,
+    isLiteral,
+    isNamedNode,
+    literal,
+    type NamedNode,
+    namedNode,
+    RdfStore
+} from './oxigraphStore'
 
 //==============================================================================
 
 type LiteralOptions = {
-    datatype?: $rdf.NamedNode|undefined
+    datatype?: NamedNode|undefined
 }
 
 /**
  * Expose our RDF code as a `pyodide` JS module, to register as a Python package
  */
 export const oximockRdfModule = {
-    blankNode: $rdf.blankNode,
+    blankNode: blankNode,
     literal: (value: string|number|boolean, options: LiteralOptions={}) => {
         if (options.datatype) {
-            return $rdf.literal(value, options.datatype)
+            return literal(value, options.datatype)
         }
-        return $rdf.literal(value)
+        return literal(value)
     },
-    namedNode: $rdf.namedNode,
+    namedNode: namedNode,
 
-    isBlankNode: $rdf.isBlankNode,
-    isLiteral: $rdf.isLiteral,
-    isNamedNode: $rdf.isNamedNode,
+    isBlankNode: isBlankNode,
+    isLiteral: isLiteral,
+    isNamedNode: isNamedNode,
 
-    RdfStore: (): $rdf.RdfStore => new $rdf.RdfStore()
+    RdfStore: (): RdfStore => new RdfStore()
 }
 
 //==============================================================================

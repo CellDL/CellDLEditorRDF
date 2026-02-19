@@ -1,0 +1,44 @@
+import dts from 'vite-plugin-dts'
+
+import path from 'node:path'
+import url from 'node:url'
+import { defineConfig } from 'vite'
+
+const _dirname = path.dirname(url.fileURLToPath(import.meta.url))
+
+export default defineConfig({
+    build: {
+        lib: {
+            entry: './index.ts',
+            fileName: (format: string) => `CellDLEditor.${format}.js`,
+            formats: ['es'],
+            name: 'CellDLEditor'
+        },
+        rollupOptions: {
+            output: {
+                exports: 'named'
+            }
+        },
+        sourcemap: true,
+        target: 'esnext'
+    },
+    optimizeDeps: {
+        esbuildOptions: {
+            target: 'esnext'
+        },
+        exclude: [
+            '*.wasm'
+        ]
+    },
+    resolve: {
+        alias: {
+            'node-fetch': 'isomorphic-fetch',
+            '@oxigraph': path.resolve(_dirname, 'src/assets/oxigraph')
+        }
+    },
+    plugins: [
+        dts({
+            insertTypesEntry: true
+        })
+    ]
+})

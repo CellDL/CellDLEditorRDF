@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "composite": true,
+        "lib": ["dom", "esnext"],
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "noEmit": false,
+        "strictNullChecks": true,
+        "resolveJsonModule": true,
+        "target": "esnext",
+        "types": ["vite/client"],
+        "paths": {
+            "@oxigraph/*": ["./src/assets/oxigraph/*"]
+        }
+    },
+    "extends": "@vue/tsconfig/tsconfig.dom.json",
+    "include": ["**/*.js", "**/*.ts", "**/*.vue", "package.json"]
+}

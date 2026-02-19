@@ -18,9 +18,11 @@ limitations under the License.
 
 ******************************************************************************/
 
-import { isNamedNode, namedNode, type NamedNode } from '.'
-
-import { SVG_URI } from '@renderer/common/svgUtils'
+import {
+    isNamedNode,
+    type NamedNode,
+    namedNode
+} from './oxigraphStore'
 
 //==============================================================================
 
@@ -36,6 +38,7 @@ export const DCT_URI = 'http://purl.org/dc/terms/'
 export const OWL_URI = 'http://www.w3.org/2002/07/owl#'
 export const RDF_URI = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'
 export const RDFS_URI = 'http://www.w3.org/2000/01/rdf-schema#'
+export const SVG_URI = 'http://www.w3.org/2000/svg'
 export const XSD_URI = 'http://www.w3.org/2001/XMLSchema#'
 
 //==============================================================================
@@ -125,9 +128,7 @@ const declaredNamespacesMap = new Map(Object.entries(declaredNamespaces))
 
 export function expandCurie(curie: string): string {
     const parts = curie.split(':')
-    // @ts-expect-error: `parts[0]` is defined
     if (parts.length > 1 && declaredNamespacesMap.has(parts[0])) {
-        // @ts-expect-error: `parts[0]` is defined
         return `${declaredNamespacesMap.get(parts[0])}${parts.slice(1).join(':')}`
     }
     return curie

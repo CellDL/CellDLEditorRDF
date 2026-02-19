@@ -1,0 +1,63 @@
+{
+    "name": "@celldl/editor-rdf",
+    "version": "0.20260219.0",
+    "author": {
+        "name": "David Brooks",
+        "email": "d.brooks@auckland.ac.nz"
+    },
+    "bugs": {
+        "url": "https://github.com/CellDL/CellDLEditorRDF/issues"
+    },
+    "description": "RDF support for the CellDL Editor.",
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE.txt"
+    ],
+    "keywords": [
+        "vue",
+        "component",
+        "celldl",
+        "bg-rdf"
+    ],
+    "license": "Apache-2.0",
+    "module": "dist/CellDLEditorRDF.es.js",
+    "productName": "CellDLEditorRDF",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CellDL/CellDLEditorRDF.git"
+    },
+    "type": "module",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/CellDLEditorRDF.es.js"
+        }
+    },
+    "scripts": {
+        "build": "vite build --config vite.config.ts",
+        "clean": "bun scripts/clean.js",
+        "format": "bunx --bun biome format --fix --max-diagnostics=none",
+        "format:check": "bunx --bun biome format --max-diagnostics=none",
+        "lint": "bunx --bun biome lint --fix --error-on-warnings --max-diagnostics=none",
+        "postinstall": "bash ./scripts/postinstall.sh",
+        "version:new": "bun scripts/version.js"
+    },
+    "bun": {
+        "overrides": {
+            "vue": "3.4.21"
+        }
+    },
+    "dependencies": {
+        "@jeswr/pretty-turtle": "^1.8.2",
+        "oxigraph": "^0.5.2"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.3.11",
+        "@types/node": "^25.0.9",
+        "autoprefixer": "^10.4.23",
+        "vite": "^7.2.7",
+        "vite-plugin-dts": "^4.5.4"
+    }
+}
