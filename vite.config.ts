@@ -1,5 +1,3 @@
-import dts from 'vite-plugin-dts'
-
 import path from 'node:path'
 import url from 'node:url'
 import { defineConfig } from 'vite'
@@ -32,13 +30,7 @@ export default defineConfig({
     },
     resolve: {
         alias: {
-            'node-fetch': 'isomorphic-fetch',
             '@oxigraph': path.resolve(_dirname, 'src/assets/oxigraph')
         }
-    },
-    plugins: [
-        dts({
-            insertTypesEntry: true
-        })
-    ]
+    }
 })
