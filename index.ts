@@ -30,6 +30,12 @@ export * as oxigraph from '@oxigraph/web.js'
 //==============================================================================
 
 export {
+    oxiRdfModule
+} from './src/oxiMock'
+
+//==============================================================================
+
+export {
     blankNode,
     isBlankNode,
     isLiteral,
@@ -38,7 +44,7 @@ export {
     namedNode,
     RdfStore,
     TurtleContentType
-} from './src/oxigraphStore'
+} from './src/oxiStore'
 
 export type {
     BlankNode,
@@ -50,7 +56,7 @@ export type {
     ObjectType,
     ContentType,
     Term
-} from './src/oxigraphStore'
+} from './src/oxiStore'
 
 //==============================================================================
 //==============================================================================

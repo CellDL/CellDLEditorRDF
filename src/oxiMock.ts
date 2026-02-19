@@ -27,7 +27,7 @@ import {
     type NamedNode,
     namedNode,
     RdfStore
-} from './oxigraphStore'
+} from './oxiStore'
 
 //==============================================================================
 
@@ -38,7 +38,7 @@ type LiteralOptions = {
 /**
  * Expose our RDF code as a `pyodide` JS module, to register as a Python package
  */
-export const oximockRdfModule = {
+export const oxiRdfModule = {
     blankNode: blankNode,
     literal: (value: string|number|boolean, options: LiteralOptions={}) => {
         if (options.datatype) {
