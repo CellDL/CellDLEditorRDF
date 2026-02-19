@@ -24,10 +24,6 @@ import { write as prettyTurtle } from '@jeswr/pretty-turtle'
 
 //==============================================================================
 
-import { WEB_DECLARATIONS } from './namespaces'
-
-//==============================================================================
-
 type Quad = $oxigraph.Quad
 
 type Variable = $oxigraph.Variable
@@ -126,15 +122,10 @@ export const TurtleContentType: ContentType = 'text/turtle'
 //==============================================================================
 //==============================================================================
 
-import { BaseStore } from './store'
-
-//==============================================================================
-
-export class RdfStore extends BaseStore {
+export class RdfStore {
     #rdfStore: $oxigraph.Store
 
     constructor() {
-        super()
         this.#rdfStore = new globalThis.oxigraph.Store()
     }
 
@@ -191,7 +182,7 @@ export class RdfStore extends BaseStore {
             const quads = this.#rdfStore.match(null, null, null, graph || globalThis.oxigraph.defaultGraph())
             const turtle = await prettyTurtle(quads, {
                 format: 'text/turtle',
-                prefixes: Object.assign({ '': `${baseIri}#` }, WEB_DECLARATIONS, namespaces),
+                prefixes: Object.assign({ '': `${baseIri}#` }, namespaces),
                 baseIri: baseIri,
                 explicitBaseIRI: true,
                 compact: false,

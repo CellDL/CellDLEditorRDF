@@ -52,9 +52,5 @@ export type {
     Term
 } from './src/oxigraphStore'
 
-export * from './src/namespaces'
-
-export type { PredicateValue } from './src/store'
-
 //==============================================================================
 //==============================================================================
