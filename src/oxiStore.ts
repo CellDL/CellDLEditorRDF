@@ -31,8 +31,12 @@ export async function initialise(module_or_path?: {
     module_or_path: $oxigraph.InitInput | Promise<$oxigraph.InitInput>
 } | $oxigraph.InitInput | Promise<$oxigraph.InitInput>): Promise<$oxigraph.InitOutput> {
     const wasm = await initOxigraph(module_or_path)
-    globalThis.oxigraph = oxigraphModule
+    globalThis.rdfModule = oxigraphModule
     return wasm
+}
+
+export function initialised(): boolean {
+    return !!globalThis.rdfModule
 }
 
 //==============================================================================
@@ -51,7 +55,7 @@ export type Term = $oxigraph.Term
 export type BlankNode = $oxigraph.BlankNode
 
 export function blankNode(value: string|undefined=undefined): BlankNode {
-    return globalThis.oxigraph.blankNode(value)
+    return globalThis.rdfModule.blankNode(value)
 }
 
 export function isBlankNode(term: unknown): boolean {
@@ -64,7 +68,7 @@ export function isBlankNode(term: unknown): boolean {
 export type Literal = $oxigraph.Literal
 
 export function literal(value: string|number|boolean, datatype: NamedNode|undefined=undefined): Literal {
-    return globalThis.oxigraph.literal(value, datatype)
+    return globalThis.rdfModule.literal(value, datatype)
 }
 
 export function isLiteral(term: unknown): boolean {
@@ -96,7 +100,7 @@ function makeNamedNode(term: Term): NamedNode | Term {
 }
 
 export function namedNode(value: string): NamedNode {
-    return makeNamedNode(globalThis.oxigraph.namedNode(value)) as NamedNode
+    return makeNamedNode(globalThis.rdfModule.namedNode(value)) as NamedNode
 }
 
 export function isNamedNode(term: unknown): boolean {
@@ -140,7 +144,7 @@ export class RdfStore {
     #rdfStore: $oxigraph.Store
 
     constructor() {
-        this.#rdfStore = new globalThis.oxigraph.Store()
+        this.#rdfStore = new globalThis.rdfModule.Store()
     }
 
     statements(graph: NamedNode | null = null): Statement[] {
@@ -148,7 +152,7 @@ export class RdfStore {
     }
 
     add(s: SubjectType, p: PredicateType, o: ObjectType, g: NamedNode | null = null): Statement {
-        const statement = globalThis.oxigraph.quad(s, p, o, g || globalThis.oxigraph.defaultGraph())
+        const statement = globalThis.rdfModule.quad(s, p, o, g || globalThis.rdfModule.defaultGraph())
         this.#rdfStore.add(statement)
         return makeStatement(statement)
     }
@@ -159,7 +163,7 @@ export class RdfStore {
         o: ObjectType | null = null,
         g: NamedNode | null = null
     ): boolean {
-        return this.#rdfStore.match(s, p, o, g || globalThis.oxigraph.defaultGraph()).length > 0
+        return this.#rdfStore.match(s, p, o, g || globalThis.rdfModule.defaultGraph()).length > 0
     }
 
     load(baseIri: string|null=null, rdf: string, contentType: ContentType=TurtleContentType, graph: NamedNode|null=null) {
@@ -167,7 +171,7 @@ export class RdfStore {
             this.#rdfStore.load(rdf, {
                 format: contentType,
                 base_iri: baseIri || undefined,
-                to_graph_name: graph || globalThis.oxigraph.defaultGraph()
+                to_graph_name: graph || globalThis.rdfModule.defaultGraph()
             })
         } catch (error) {
             throw new Error(`Error parsing RDF: ${(<Error>error).message}`)
@@ -180,7 +184,7 @@ export class RdfStore {
         o: ObjectType | null = null,
         g: NamedNode | null = null
     ) {
-        const statements = this.#rdfStore.match(s, p, o, g || globalThis.oxigraph.defaultGraph())
+        const statements = this.#rdfStore.match(s, p, o, g || globalThis.rdfModule.defaultGraph())
         for (const statement of statements) {
             this.#rdfStore.delete(statement)
         }
@@ -193,7 +197,7 @@ export class RdfStore {
         graph: NamedNode | null = null
     ): Promise<string> {
         if (contentType === TurtleContentType) {
-            const quads = this.#rdfStore.match(null, null, null, graph || globalThis.oxigraph.defaultGraph())
+            const quads = this.#rdfStore.match(null, null, null, graph || globalThis.rdfModule.defaultGraph())
             const turtle = await prettyTurtle(quads, {
                 format: 'text/turtle',
                 prefixes: Object.assign({ '': `${baseIri}#` }, namespaces),
@@ -206,7 +210,7 @@ export class RdfStore {
         } else {
             return this.#rdfStore.dump({
                 format: contentType,
-                from_graph_name: graph || globalThis.oxigraph.defaultGraph()
+                from_graph_name: graph || globalThis.rdfModule.defaultGraph()
             })
         }
     }
@@ -243,7 +247,7 @@ export class RdfStore {
         o: ObjectType | null = null,
         g: NamedNode | null = null
     ): Statement[] {
-        const statements: Quad[] = this.#rdfStore.match(s, p, o, g || globalThis.oxigraph.defaultGraph())
+        const statements: Quad[] = this.#rdfStore.match(s, p, o, g || globalThis.rdfModule.defaultGraph())
         return statements.map((s) => makeStatement(s))
     }
 

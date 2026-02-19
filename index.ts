@@ -25,6 +25,7 @@ export {
 export {
     blankNode,
     initialise,
+    initialised,
     isBlankNode,
     isLiteral,
     isNamedNode,
