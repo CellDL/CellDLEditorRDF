@@ -19,7 +19,7 @@ limitations under the License.
 ******************************************************************************/
 
 import initOxigraph from '@oxigraph/web.js'
-import type * as $oxigraph from '@oxigraph/web'
+import type * as $oxigraph from 'oxigraph/web'
 
 import { write as prettyTurtle } from '@jeswr/pretty-turtle'
 
@@ -43,7 +43,7 @@ export type Term = $oxigraph.Term
 
 export type BlankNode = $oxigraph.BlankNode
 
-export function blankNode(value: string|undefined=undefined) {
+export function blankNode(value: string|undefined=undefined): BlankNode {
     return globalThis.oxigraph.blankNode(value)
 }
 
@@ -56,7 +56,7 @@ export function isBlankNode(term: unknown): boolean {
 
 export type Literal = $oxigraph.Literal
 
-export function literal(value: string|number|boolean, datatype: NamedNode|undefined=undefined) {
+export function literal(value: string|number|boolean, datatype: NamedNode|undefined=undefined): Literal {
     return globalThis.oxigraph.literal(value, datatype)
 }
 

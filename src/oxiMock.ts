@@ -23,6 +23,7 @@ import {
     isBlankNode,
     isLiteral,
     isNamedNode,
+    type Literal,
     literal,
     type NamedNode,
     namedNode,
@@ -40,7 +41,7 @@ type LiteralOptions = {
  */
 export const oxiRdfModule = {
     blankNode: blankNode,
-    literal: (value: string|number|boolean, options: LiteralOptions={}) => {
+    literal: (value: string|number|boolean, options: LiteralOptions={}): Literal => {
         if (options.datatype) {
             return literal(value, options.datatype)
         }
