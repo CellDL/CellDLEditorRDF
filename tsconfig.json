@@ -1,31 +1,31 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
-        "lib": ["dom", "ESNext"],
+        "allowJs": true,
         "baseUrl": ".",
         "declaration": true,
         "declarationMap": true,
         "emitDeclarationOnly": true,
         "esModuleInterop": true,
-        "outDir": "./dist/types",
-        "resolveJsonModule": true,
-        "verbatimModuleSyntax": true,
-        "skipLibCheck": true,
-        "skipDefaultLibCheck": true,
         "jsx": "preserve",
-        "allowJs": true,
-        "strict": true,
-        "strictNullChecks": true,
+        "lib": ["dom", "ESNext"],
+        "module": "ESNext",
         "moduleResolution": "bundler",
         "moduleDetection": "auto",
         "noEmit": true,
+        "outDir": "./dist/types",
+        "paths": {
+            "@oxigraph/*": ["./src/assets/oxigraph/*"]
+        },
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "target": "ESNext",
         "types": [
             "vite/client"
         ],
-        "paths": {
-            "@oxigraph/*": ["./src/assets/oxigraph/*"]
-        }
+        "verbatimModuleSyntax": true
     },
     "include": ["**/*.js", "**/*.ts", "package.json"]
 }
