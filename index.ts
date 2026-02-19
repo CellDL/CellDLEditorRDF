@@ -18,25 +18,13 @@ limitations under the License.
 
 ******************************************************************************/
 
-import initOxigraph from '@oxigraph/web.js'
-import type { InitInput, InitOutput } from '@oxigraph/web.js'
-
-export const loadOxigraph: (module_or_path?: {
-    module_or_path: InitInput | Promise<InitInput>
-} | InitInput | Promise<InitInput>) => Promise<InitOutput> = initOxigraph
-
-export * as oxigraph from '@oxigraph/web.js'
-
-//==============================================================================
-
 export {
     oxiRdfModule
 } from './src/oxiMock'
 
-//==============================================================================
-
 export {
     blankNode,
+    initialise,
     isBlankNode,
     isLiteral,
     isNamedNode,

@@ -18,9 +18,16 @@ limitations under the License.
 
 ******************************************************************************/
 
+import initOxigraph from '@oxigraph/web.js'
 import type * as $oxigraph from '@oxigraph/web'
 
 import { write as prettyTurtle } from '@jeswr/pretty-turtle'
+
+//==============================================================================
+
+export const initialise: (module_or_path?: {
+    module_or_path: $oxigraph.InitInput | Promise<$oxigraph.InitInput>
+} | $oxigraph.InitInput | Promise<$oxigraph.InitInput>) => Promise<$oxigraph.InitOutput> = initOxigraph
 
 //==============================================================================
 
